@@ -1,4 +1,4 @@
-package com.studease.scorp.servlet;
+package org.studease.scorp.servlet;
 
 import javax.servlet.*;
 import java.io.IOException;

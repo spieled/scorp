@@ -4,14 +4,6 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
          version="2.4">
     <display-name>Archetype Created Web Application</display-name>
-    <!--<servlet>
-        <servlet-name>helloServlet</servlet-name>
-        <servlet-class>com.studease.scorp.servlet.HelloServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>helloServlet</servlet-name>
-        <url-pattern>/hello</url-pattern>
-    </servlet-mapping>-->
 
     <!-- context -->
     <context-param>
@@ -39,7 +31,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
-        <url-pattern>*.do</url-pattern>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
 
 </web-app>

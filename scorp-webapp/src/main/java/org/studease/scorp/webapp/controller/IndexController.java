@@ -1,4 +1,4 @@
-package com.studease.scorp.webapp.controller;
+package org.studease.scorp.webapp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
