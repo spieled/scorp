@@ -59,12 +59,12 @@
                     <property name="dateToolAttribute">
                         <value>dateTool</value>
                     </property>
-                    <!--<property name="attributesMap">
+                    <property name="attributesMap">
                         <map>
-                            &lt;!&ndash;Velocity Escape Tool&ndash;&gt;
+                            <!--Velocity Escape Tool-->
                             <entry key="esc"><bean class="org.apache.velocity.tools.generic.EscapeTool"/></entry>
                         </map>
-                    </property>-->
+                    </property>
                 </bean>
             </list>
         </property>
