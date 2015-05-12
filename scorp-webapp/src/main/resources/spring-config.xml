@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.1.xsd
+
+
+
+
+		http://www.springframework.org/schema/cache 
+    	http://www.springframework.org/schema/cache/spring-cache.xsd">
+
+    <!-- 自动扫描的包名 -->
+    <context:component-scan base-package="org.studease.scorp.*"></context:component-scan>
+
+    <!-- 缓存配置 -->
+    <cache:annotation-driven/>
+
+    <bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
+        <property name="caches">
+            <set>
+                <bean
+                        class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean"
+                        p:name="second_cache"/>
+            </set>
+        </property>
+    </bean>
+
+    <!--<bean id="monitor" class="com.jumei.jmp.sdk.MonitorInfo" init-method="monitorInit">-->
+    <!--<constructor-arg name="appCode" value="jwms"></constructor-arg>-->
+    <!--<constructor-arg name="monitorWebUrl" value="http://192.168.49.88:9080/jmp/service/queryJmpServer"></constructor-arg>-->
+    <!--<property name="jvmKey" value="jwms.web.jvm"></property>-->
+    <!--</bean>-->
+
+    <import resource="spring/spring-dao.xml"/>
+    <import resource="spring/spring-properties.xml"/>
+    <!--<import resource="spring/spring-rpc/spring-thrift-server.xml" />
+    <import resource="spring/spring-rpc/spring-thrift-client.xml" />
+    <import resource="spring/spring-dao.xml" />
+    <import resource="spring/spring-redis.xml" />
+    <import resource="spring/spring-gearman.xml" />
+    <import resource="spring/spring-quartz.xml" />
+    <import resource="spring/spring-email.xml" />
+    <import resource="spring/spring-mq/spring-mq-producer.xml" />
+    <import resource="spring/spring-mq/spring-mq-consumer.xml" />
+    <import resource="spring/spring-aop.xml" />
+    <import resource="spring/spring-properties.xml" />-->
+</beans>

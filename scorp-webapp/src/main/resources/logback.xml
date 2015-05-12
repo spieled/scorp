@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration scan="true" scanPeriod="1s">
+    <property resource="logback.properties"/>
+    <appender name="all_error"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <File>${logback.file.path}/all_error.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${logback.file.path}/all_error.%d{yyyy-MM-dd}.log
+            </FileNamePattern>
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%date [%thread] %-5level %logger{80} - %msg%n</Pattern>
+        </layout>
+    </appender>
+    <appender name="all_warn"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>WARN</level>
+        </filter>
+        <File>${logback.file.path}/all_warn.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${logback.file.path}/all_warn.%d{yyyy-MM-dd}.log
+            </FileNamePattern>
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%date [%thread] %-5level %logger{80} - %msg%n</Pattern>
+        </layout>
+    </appender>
+    <appender name="all_info"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <File>${logback.file.path}/all_info.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${logback.file.path}/all_info.%d{yyyy-MM-dd}.log
+            </FileNamePattern>
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%date [%thread] %-5level %logger{80} - %msg%n</Pattern>
+        </layout>
+    </appender>
+    <appender name="all_debug"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+        <File>${logback.file.path}/all_debug.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${logback.file.path}/all_debug.%d{yyyy-MM-dd}.log
+            </FileNamePattern>
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%date [%thread] %-5level %logger{80} - %msg%n</Pattern>
+        </layout>
+    </appender>
+    <appender name="slow_query"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <File>${logback.file.path}/slow_query.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${logback.file.path}/slow_query.%d{yyyy-MM-dd}.log
+            </FileNamePattern>
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%date [%thread] %-5level %logger{80} - %msg%n</Pattern>
+        </layout>
+    </appender>
+    <appender name="interface_message"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <File>${logback.file.path}/interface_message.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${logback.file.path}/interface_message.%d{yyyy-MM-dd}.log
+            </FileNamePattern>
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%date [%thread] %-5level %logger{80} - %msg%n</Pattern>
+        </layout>
+    </appender>
+    <appender name="quartz_jobs"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <File>${logback.file.path}/quartz_jobs.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${logback.file.path}/quartz_jobs.%d{yyyy-MM-dd}.log
+            </FileNamePattern>
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%date [%thread] %-5level %logger{80} - %msg%n</Pattern>
+        </layout>
+    </appender>
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{15} - %msg%n%throwable{10}</pattern>
+        </encoder>
+    </appender>
+
+    <jmxConfigurator></jmxConfigurator>
+
+    <logger name="java.sql.Connection" level="${logback.sql.level}"/>
+    <logger name="java.sql.Statement" level="${logback.sql.level}"/>
+    <logger name="java.sql.PreparedStatement" level="${logback.sql.level}"/>
+    <logger name="java.sql.ResultSet" level="${logback.sql.level}"/>
+    <logger name="com.jumei.wms.dataaccess.dao.db.interceptor.SlowQueryLogInterceptor" level="${logback.slow.level}">
+        <appender-ref ref="slow_query"/>
+    </logger>
+    <logger name="com.jumei.wms.core.mq.consumer" level="${logback.interface.level}">
+        <appender-ref ref="interface_message"/>
+    </logger>
+    <logger name="com.jumei.wms.core.thrift.service" level="${logback.interface.level}">
+        <appender-ref ref="interface_message"/>
+    </logger>
+    <logger name="com.jumei.wms.core.quartz.jobs" level="${logback.jobs.level}">
+        <appender-ref ref="quartz_jobs"/>
+    </logger>
+    <logger name="org.quartz" level="${logback.quartz.level}"/>
+    <root level="${logback.root.level}">
+        <appender-ref ref="console"/>
+        <appender-ref ref="${logback.appender.name}"/>
+    </root>
+</configuration>  
