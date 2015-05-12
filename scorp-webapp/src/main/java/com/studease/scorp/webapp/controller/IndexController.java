@@ -1,8 +1,13 @@
 package com.studease.scorp.webapp.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.studease.scorp.core.service.UserService;
+import org.studease.scorp.dataaccess.entity.User;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * Author: liushaoping
@@ -11,11 +16,30 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class IndexController {
 
-    @RequestMapping("index")
-    public
-    @ResponseBody
-    String index() {
-        return "You are visiting the index page.";
+    @Autowired
+    private UserService userService;
+
+    {
+        System.out.println("======================init IndexController===============");
     }
+
+    @RequestMapping("/index")
+    public void index(HttpServletResponse response) throws IOException {
+        System.out.println("You are visiting the index page.");
+        response.getWriter().append("You are visiting the index page.").flush();
+    }
+
+    @RequestMapping("/addUser")
+    public void addUser(HttpServletResponse response) throws IOException {
+        System.out.println("You are visiting the addUser page.");
+
+        User user = new User();
+        user.setName("panda");
+        user.setRemark("熊猫大侠");
+        userService.addUser(user);
+
+        response.getWriter().append("You are visiting the addUser page.").flush();
+    }
+
 
 }

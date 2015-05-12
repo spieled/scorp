@@ -15,7 +15,8 @@
     	http://www.springframework.org/schema/cache/spring-cache.xsd">
 
     <!-- 自动扫描的包名 -->
-    <context:component-scan base-package="org.studease.scorp.*"></context:component-scan>
+    <context:component-scan
+            base-package="org.studease.scorp.dataaccess.*, org.studease.scorp.core.*, org.studease.scorp.webapp.*"></context:component-scan>
 
     <!-- 缓存配置 -->
     <cache:annotation-driven/>
