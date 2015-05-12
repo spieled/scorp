@@ -12,15 +12,16 @@
 		http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
     <!-- 自动扫描的包名 -->
-    <context:component-scan base-package="org.studease.scorp.*"/>
+    <context:component-scan base-package="org.studease.scorp"/>
 
     <!-- 默认的注解映射的支持 -->
-    <!-- 添加自定义返回值的处理器-->
-    <!--<mvc:annotation-driven>
-        <mvc:return-value-handlers>
+
+    <mvc:annotation-driven>
+        <!-- 添加自定义返回值的处理器-->
+        <!--<mvc:return-value-handlers>
             <bean class="com.jumei.wms.web.handler.JWMSHandlerMethodReturnValueHandler" />
-        </mvc:return-value-handlers>
-    </mvc:annotation-driven>-->
+        </mvc:return-value-handlers>-->
+    </mvc:annotation-driven>
 
     <!-- 拦截器-->
     <!--<mvc:interceptors>
