@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 用户 ，对应数据库表：user -->
-<mapper namespace="org.studease.scorp.dao.UserDao">
+<mapper namespace="org.studease.scorp.dataaccess.dao.UserDao">
 
-    <resultMap type="org.studease.scorp.entity.User" id="user">
-        <result column="id" property="id"/>
+    <resultMap type="org.studease.scorp.dataaccess.entity.User" id="user">
+    <result column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="remark" property="remark"/>
     </resultMap>
