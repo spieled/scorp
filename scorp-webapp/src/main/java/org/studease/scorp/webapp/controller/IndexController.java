@@ -26,6 +26,10 @@ public class IndexController {
     @RequestMapping("/index")
     public void index(HttpServletResponse response) throws IOException {
         System.out.println("You are visiting the index page.");
+
+        User user = userService.findUserById(1);
+        System.out.println(user);
+
         response.getWriter().append("You are visiting the index page.").flush();
     }
 
