@@ -5,6 +5,10 @@
          version="2.4">
     <display-name>Archetype Created Web Application</display-name>
 
+    <welcome-file-list>
+        <welcome-file>html/dashboard.html</welcome-file>
+    </welcome-file-list>
+
     <!-- context -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
