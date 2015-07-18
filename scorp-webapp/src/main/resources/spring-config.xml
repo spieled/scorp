@@ -15,7 +15,7 @@
     	http://www.springframework.org/schema/cache/spring-cache.xsd">
 
     <!-- 自动扫描的包名 -->
-    <context:component-scan base-package="org.studease.scorp">
+    <context:component-scan base-package="cn.studease.scorp">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 

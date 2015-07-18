@@ -31,13 +31,13 @@
 
     <!-- sqlSessionFactory -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"
-          p:typeAliasesPackage="org.studease.scorp.dataaccess.entity">
+          p:typeAliasesPackage="cn.studease.scorp.dataaccess.entity">
         <property name="dataSource" ref="dataSource"/>
         <property name="configLocation" value="classpath:/sqlmap-config.xml"/>
     </bean>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"
-          p:basePackage="org.studease.scorp.dataaccess.dao"
+          p:basePackage="cn.studease.scorp.dataaccess.dao"
           p:sqlSessionFactoryBeanName="sqlSessionFactory"/>
 
     <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">

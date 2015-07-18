@@ -1,13 +1,12 @@
-package org.studease.scorp.webapp.controller;
+package cn.studease.scorp.webapp.controller;
 
+import cn.studease.scorp.core.service.UserService;
+import cn.studease.scorp.dataaccess.entity.User;
+import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.studease.scorp.core.service.UserService;
-import org.studease.scorp.dataaccess.entity.User;
-
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * Author: liushaoping

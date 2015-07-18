@@ -1,7 +1,6 @@
-package org.studease.scorp.dataaccess.entity;
+package cn.studease.scorp.dataaccess.entity;
 
 import com.alibaba.fastjson.JSON;
-
 import java.io.Serializable;
 
 /**

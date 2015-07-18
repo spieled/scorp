@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.studease</groupId>
+    <groupId>cn.studease</groupId>
     <artifactId>scorp</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
@@ -77,27 +77,27 @@
         <dependencies>
             <!-- all modules version -->
             <dependency>
-                <groupId>org.studease</groupId>
+                <groupId>cn.studease</groupId>
                 <artifactId>scorp-common</artifactId>
                 <version>${scorp.module.scorp-common}</version>
             </dependency>
             <dependency>
-                <groupId>org.studease</groupId>
+                <groupId>cn.studease</groupId>
                 <artifactId>scorp-core</artifactId>
                 <version>${scorp.module.scorp-core}</version>
             </dependency>
             <dependency>
-                <groupId>org.studease</groupId>
+                <groupId>cn.studease</groupId>
                 <artifactId>scorp-dataaccess</artifactId>
                 <version>${scorp.module.scorp-dataaccess}</version>
             </dependency>
             <dependency>
-                <groupId>org.studease</groupId>
+                <groupId>cn.studease</groupId>
                 <artifactId>scorp-webapp</artifactId>
                 <version>${scorp.module.scorp-webapp}</version>
             </dependency>
             <dependency>
-                <groupId>org.studease</groupId>
+                <groupId>cn.studease</groupId>
                 <artifactId>scorp-api</artifactId>
                 <version>${scorp.module.scorp-api}</version>
             </dependency>

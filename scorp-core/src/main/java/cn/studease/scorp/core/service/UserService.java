@@ -1,10 +1,10 @@
-package org.studease.scorp.core.service;
+package cn.studease.scorp.core.service;
 
+import cn.studease.scorp.dataaccess.dao.UserDao;
+import cn.studease.scorp.dataaccess.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.studease.scorp.dataaccess.dao.UserDao;
-import org.studease.scorp.dataaccess.entity.User;
 
 /**
  * Author: liushaoping

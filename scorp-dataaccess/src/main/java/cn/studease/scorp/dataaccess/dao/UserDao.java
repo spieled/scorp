@@ -1,6 +1,6 @@
-package org.studease.scorp.dataaccess.dao;
+package cn.studease.scorp.dataaccess.dao;
 
-import org.studease.scorp.dataaccess.entity.User;
+import cn.studease.scorp.dataaccess.entity.User;
 
 /**
  * Author: liushaoping
