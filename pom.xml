@@ -13,6 +13,7 @@
         <module>scorp-dataaccess</module>
         <module>scorp-api</module>
         <module>scorp-webapp</module>
+        <module>scorp-util</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -61,6 +62,19 @@
         <dep.dubbo.version>2.4.9</dep.dubbo.version>
         <dep.zookeeper.version>3.3.3</dep.zookeeper.version>
         <dep.mongodb.version>1.5.0.RELEASE</dep.mongodb.version>
+        <dep.google.zxing.version>3.2.0</dep.google.zxing.version>
+        <dep.aspectj.version>1.7.4</dep.aspectj.version>
+        <dep.tomcat.version>7.0.5</dep.tomcat.version>
+        <dep.commons.lang3.version>3.1</dep.commons.lang3.version>
+        <dep.commons.codec>1.8</dep.commons.codec>
+        <dep.commons.fileupload>1.2.2</dep.commons.fileupload>
+        <dep.commons.io>1.4</dep.commons.io>
+        <dep.commons.httpclient>3.1</dep.commons.httpclient>
+        <dep.commons.dbcp>1.4</dep.commons.dbcp>
+        <dep.commons.pool>1.6</dep.commons.pool>
+        <dep.zkclient.version>0.1</dep.zkclient.version>
+        <dep.junit.version>4.11</dep.junit.version>
+        <dep.pinyin4j.version>2.5.0</dep.pinyin4j.version>
         <!-- all modules version -->
         <scorp.module.scorp>1.0-SNAPSHOT</scorp.module.scorp>
         <scorp.module.scorp-common>1.0-SNAPSHOT</scorp.module.scorp-common>
@@ -101,6 +115,13 @@
                 <artifactId>scorp-api</artifactId>
                 <version>${scorp.module.scorp-api}</version>
             </dependency>
+            <!-- zxing二维码 -->
+            <dependency>
+                <groupId>com.google.zxing</groupId>
+                <artifactId>core</artifactId>
+                <version>${dep.google.zxing.version}</version>
+            </dependency>
+
             <!-- fastjson -->
             <dependency>
                 <groupId>com.alibaba</groupId>
@@ -238,44 +259,44 @@
             <dependency>
                 <groupId>org.aspectj</groupId>
                 <artifactId>aspectjrt</artifactId>
-                <version>1.7.4</version>
+                <version>${dep.aspectj.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.aspectj</groupId>
                 <artifactId>aspectjweaver</artifactId>
-                <version>1.7.4</version>
+                <version>${dep.aspectj.version}</version>
             </dependency>
             <!-- tomcat -->
             <dependency>
                 <groupId>org.apache.tomcat</groupId>
                 <artifactId>tomcat-catalina</artifactId>
-                <version>7.0.5</version>
+                <version>${dep.tomcat.version}</version>
             </dependency>
             <!-- other -->
             <dependency>
                 <groupId>commons-codec</groupId>
                 <artifactId>commons-codec</artifactId>
-                <version>1.8</version>
+                <version>${dep.commons.codec}</version>
             </dependency>
             <dependency>
                 <groupId>commons-fileupload</groupId>
                 <artifactId>commons-fileupload</artifactId>
-                <version>1.2.2</version>
+                <version>${dep.commons.fileupload}</version>
             </dependency>
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
-                <version>1.4</version>
+                <version>${dep.commons.io}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
-                <version>3.1</version>
+                <version>${dep.commons.lang3.version}</version>
             </dependency>
             <dependency>
                 <groupId>commons-httpclient</groupId>
                 <artifactId>commons-httpclient</artifactId>
-                <version>3.1</version>
+                <version>${dep.commons.httpclient}</version>
             </dependency>
             <!-- velocity -->
             <dependency>
@@ -318,7 +339,7 @@
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.11</version>
+                <version>${dep.junit.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
@@ -334,12 +355,12 @@
             <dependency>
                 <groupId>commons-dbcp</groupId>
                 <artifactId>commons-dbcp</artifactId>
-                <version>1.4</version>
+                <version>${dep.commons.dbcp}</version>
             </dependency>
             <dependency>
                 <groupId>commons-pool</groupId>
                 <artifactId>commons-pool</artifactId>
-                <version>1.6</version>
+                <version>${dep.commons.pool}</version>
             </dependency>
             <dependency>
                 <groupId>c3p0</groupId>
@@ -427,7 +448,7 @@
             <dependency>
                 <groupId>com.github.sgroschupf</groupId>
                 <artifactId>zkclient</artifactId>
-                <version>0.1</version>
+                <version>${dep.zkclient.version}</version>
             </dependency>
             <!-- mongodb -->
             <dependency>
@@ -446,6 +467,13 @@
                 <artifactId>parrot-service</artifactId>
                 <version>${dep.parrot-service.version}</version>
             </dependency>
+            <!-- pinyin4j -->
+            <dependency>
+                <groupId>com.belerweb</groupId>
+                <artifactId>pinyin4j</artifactId>
+                <version>${dep.pinyin4j.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
     <!-- Build Settings -->
