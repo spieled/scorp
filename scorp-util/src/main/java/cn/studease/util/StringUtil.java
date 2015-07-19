@@ -1,6 +1,15 @@
 package cn.studease.util;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.security.MessageDigest;
+import java.security.SecureRandom;
 import java.util.regex.Pattern;
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
 import org.slf4j.LoggerFactory;
 
@@ -12,6 +21,7 @@ import org.slf4j.LoggerFactory;
 public class StringUtil {
 
     private static final org.slf4j.Logger log = LoggerFactory.getLogger(StringUtil.class);
+    private static final char[] HEX_DIGITS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
     public static boolean isPhoneNumber(String number) {
         try {
@@ -21,11 +31,9 @@ public class StringUtil {
         return false;
     }
 
-
     public static boolean isEmail(String email) {
         return (email != null) && (Pattern.compile("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*").matcher(email.toLowerCase()).matches());
     }
-
 
     public static String toRMB(String fee) {
         String num = "零壹贰叁肆伍陆柒捌玖";
@@ -105,7 +113,6 @@ public class StringUtil {
         return str != null && str.trim().length() > 0;
     }
 
-
     public static boolean hasText(String[] array) {
         return (array != null) && (array.length > 0) && (array[0] != null) && (array[0].length() > 0);
     }
@@ -129,7 +136,6 @@ public class StringUtil {
         }
         return new String(randBuffer);
     }
-
 
     public static <T> int compare(T v1, T v2) {
         if (v1 == null) {
@@ -158,7 +164,6 @@ public class StringUtil {
         }
         return compared;
     }
-
 
     public static int compareString(String s1, String s2) {
         if (s1 == null) {
@@ -205,7 +210,6 @@ public class StringUtil {
         return 0;
     }
 
-
     public static int comparePinYin(String s1, String s2) {
         for (int i = 0; (i < s1.length()) && (i < s2.length()); i++) {
             int codePoint1 = s1.charAt(i);
@@ -240,11 +244,9 @@ public class StringUtil {
         return pinyin[0];
     }
 
-
     public static String getPinYin(String str) {
         return getPinYin(str, false);
     }
-
 
     public static String getPinYin(String str, boolean full) {
         if (!hasText(str)) {
@@ -275,4 +277,196 @@ public class StringUtil {
         return sb.toString().replaceAll("\\W", "").trim();
     }
 
+    public static String deleteLastChar(String str) {
+        if (hasText(str)) {
+            return str.substring(0, str.length() - 1);
+        }
+        return str;
+    }
+
+    public static String deleteFirstChar(String str) {
+        if (hasText(str)) {
+            return str.substring(1, str.length() - 1);
+        }
+        return str;
+    }
+
+    public static String upperCaseFirstChar(String str) {
+        if ((str == null) || (str.length() == 0)) {
+            return str;
+        }
+        if (str.length() == 1) {
+            return str.toUpperCase();
+        }
+        return str.substring(0, 1).toUpperCase() + str.substring(1);
+    }
+
+    public static String lowerCaseFirstChar(String str) {
+        if ((str == null) || (str.length() == 0)) {
+            return str;
+        }
+        if (str.length() == 1) {
+            return str.toUpperCase();
+        }
+        return str.substring(0, 1).toLowerCase() + str.substring(1);
+    }
+
+    public static String toUpperCase(String str) {
+        return hasText(str) ? str.toUpperCase() : str;
+    }
+
+    public static String toLowerCase(String str) {
+        return hasText(str) ? str.toLowerCase() : str;
+    }
+
+    public static String aesEncrypt(String plainText, String key) {
+        try {
+            KeyGenerator kgen = KeyGenerator.getInstance("AES");
+            SecureRandom secureRandom = SecureRandom.getInstance("SHA1PRNG");
+            secureRandom.setSeed(key.getBytes());
+            kgen.init(128, secureRandom);
+            SecretKey secretKey = kgen.generateKey();
+            byte[] enCodeFormat = secretKey.getEncoded();
+            SecretKeySpec keySpec = new SecretKeySpec(enCodeFormat, "AES");
+            Cipher cipher = Cipher.getInstance("AES");
+            byte[] byteContent = plainText.getBytes("utf-8");
+            cipher.init(1, keySpec);
+            return byte2hex(cipher.doFinal(byteContent));
+        } catch (Exception e) {
+            throw new RuntimeException("采用AES算法加密失败", e);
+        }
+    }
+
+    public static String aesDecrypt(String cipherText, String key) {
+        try {
+            KeyGenerator kgen = KeyGenerator.getInstance("AES");
+            SecureRandom secureRandom = SecureRandom.getInstance("SHA1PRNG");
+            secureRandom.setSeed(key.getBytes());
+            kgen.init(128, secureRandom);
+            SecretKey secretKey = kgen.generateKey();
+            byte[] enCodeFormat = secretKey.getEncoded();
+            SecretKeySpec keySpec = new SecretKeySpec(enCodeFormat, "AES");
+            Cipher aes = Cipher.getInstance("AES");
+            aes.init(2, keySpec);
+            return new String(aes.doFinal(hex2byte(cipherText)));
+        } catch (Exception e) {
+            throw new RuntimeException("采用AES算法解密失败", e);
+        }
+    }
+
+    public static String md5(String plainText) {
+        if (!hasText(plainText)) {
+            return "";
+        }
+        try {
+            MessageDigest md5 = MessageDigest.getInstance("MD5");
+            byte[] md5Bytes = md5.digest(plainText.getBytes());
+            byte[] special = {2, 3, 7, 11, 14};
+            for (byte i : special) {
+                int b = md5Bytes[i];
+                b += i;
+                if (b > 127) {
+                    b -= 127;
+                }
+                md5Bytes[i] = ((byte) b);
+            }
+            return byte2hex(md5.digest(md5Bytes));
+        } catch (Exception e) {
+            throw new RuntimeException("采用MD5算法加密失败", e);
+        }
+    }
+
+    public static String md5Raw(String plainText) {
+        if (!hasText(plainText)) {
+            return "";
+        }
+        try {
+            return byte2hex(MessageDigest.getInstance("MD5").digest(plainText.getBytes("utf-8")));
+        } catch (Exception e) {
+            throw new RuntimeException("采用MD5算法加密失败", e);
+        }
+    }
+
+    public static String sha1(String str) {
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance("SHA1");
+            messageDigest.update(str.getBytes("utf-8"));
+            byte[] bytes = messageDigest.digest();
+            int len = bytes.length;
+            StringBuilder buf = new StringBuilder(len * 2);
+            for (int j = 0; j < len; j++) {
+                buf.append(HEX_DIGITS[(bytes[j] >> 4 & 0xF)]);
+                buf.append(HEX_DIGITS[(bytes[j] & 0xF)]);
+            }
+            return buf.toString();
+        } catch (Exception e) {
+            throw new RuntimeException("采用SHA1算法加密失败", e);
+        }
+    }
+
+    public static String readStreamString(InputStream inputStream) {
+        if (inputStream == null) {
+            return "";
+        }
+        StringBuffer out = new StringBuffer();
+        try {
+            byte[] b = new byte['က'];
+            int n;
+            while ((n = inputStream.read(b)) != -1) {
+                out.append(new String(b, 0, n, "utf-8"));
+            }
+            return out.toString();
+        } catch (Exception e) {
+            throw new RuntimeException("读取流失败", e);
+        }
+    }
+
+
+    public static byte[] readStreamBytes(InputStream inputStream) {
+        try {
+            BufferedInputStream bufin = new BufferedInputStream(inputStream);
+            int buffSize = 4096;
+            ByteArrayOutputStream out = new ByteArrayOutputStream(buffSize);
+            byte[] temp = new byte[buffSize];
+            int size;
+            while ((size = bufin.read(temp)) != -1) {
+                out.write(temp, 0, size);
+            }
+            inputStream.close();
+            return out.toByteArray();
+        } catch (Exception e) {
+        }
+        return new byte[0];
+    }
+
+
+    public static String byte2hex(byte[] bytes) {
+        StringBuilder sb = new StringBuilder();
+        for (byte b : bytes) {
+            String hex = Integer.toHexString(b & 0xFF);
+            if (hex.length() == 1) {
+                hex = "0" + hex;
+            }
+            sb.append(hex);
+        }
+        return sb.toString();
+    }
+
+
+    public static byte[] hex2byte(String hex) {
+        if (hex.length() < 1) {
+            return null;
+        }
+        byte[] result = new byte[hex.length() / 2];
+        for (int i = 0; i < hex.length() / 2; i++) {
+            int high = Integer.parseInt(hex.substring(i * 2, i * 2 + 1), 16);
+            int low = Integer.parseInt(hex.substring(i * 2 + 1, i * 2 + 2), 16);
+            result[i] = ((byte) (high * 16 + low));
+        }
+        return result;
+    }
+
+    public static String trim(String parallel) {
+        return parallel == null ? Constants.EMPTY : parallel.trim();
+    }
 }

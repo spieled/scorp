@@ -14,6 +14,7 @@
         <module>scorp-api</module>
         <module>scorp-webapp</module>
         <module>scorp-util</module>
+        <module>scorp-guzz</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -75,6 +76,8 @@
         <dep.zkclient.version>0.1</dep.zkclient.version>
         <dep.junit.version>4.11</dep.junit.version>
         <dep.pinyin4j.version>2.5.0</dep.pinyin4j.version>
+        <dep.org.apache.poi.version>3.8</dep.org.apache.poi.version>
+        <dep.org.guzz.version>1.3.1</dep.org.guzz.version>
         <!-- all modules version -->
         <scorp.module.scorp>1.0-SNAPSHOT</scorp.module.scorp>
         <scorp.module.scorp-common>1.0-SNAPSHOT</scorp.module.scorp-common>
@@ -472,6 +475,23 @@
                 <groupId>com.belerweb</groupId>
                 <artifactId>pinyin4j</artifactId>
                 <version>${dep.pinyin4j.version}</version>
+            </dependency>
+            <!-- POI操作Office的依赖 -->
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>${dep.org.apache.poi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>${dep.org.apache.poi.version}</version>
+            </dependency>
+            <!-- GUZZ的依赖 -->
+            <dependency>
+                <groupId>org.guzz</groupId>
+                <artifactId>guzz</artifactId>
+                <version>${dep.org.guzz.version}</version>
             </dependency>
 
         </dependencies>

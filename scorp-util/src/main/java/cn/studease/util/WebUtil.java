@@ -1,14 +1,16 @@
 package cn.studease.util;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.lang.annotation.Annotation;
+import java.util.*;
 import javax.servlet.ServletContext;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -185,4 +187,169 @@ public class WebUtil {
         return items;
     }
 
+    public static void json(HttpServletResponse response, boolean success, String msg) {
+        Map<String, Object> model = new HashMap();
+        model.put("success", Boolean.valueOf(success));
+        if (StringUtil.hasText(msg)) {
+            model.put("msg", msg);
+        }
+        try {
+            addCacheControlHeaders(response, true);
+            response.getWriter().print(JSON.toJSONString(model));
+        } catch (Exception e) {
+            log.trace("输出JSON对象失败", e);
+        }
+    }
+
+    public static void json(HttpServletResponse response, boolean success) {
+        json(response, success, null);
+    }
+
+
+    public static void json(HttpServletResponse response, String msg) {
+        json(response, !StringUtil.hasText(msg), msg);
+    }
+
+
+    public static void json(HttpServletResponse response, Object object) {
+        try {
+            addCacheControlHeaders(response, true);
+            response.getWriter().print(JSON.toJSONString(object));
+        } catch (IOException ignored) {
+            log.trace("输出JSON对象失败", ignored);
+        }
+    }
+
+
+    public static <T extends Object> void json(HttpServletResponse response, T pojo, String[] fields) {
+        try {
+            addCacheControlHeaders(response, true);
+            response.getWriter().print(JSON.toJSONString(pojo, new com.alibaba.fastjson.serializer.SimplePropertyPreFilter(pojo.getClass(), fields), new com.alibaba.fastjson.serializer.SerializerFeature[0]));
+        } catch (IOException ignored) {
+            log.trace("输出JSON对象失败", ignored);
+        }
+    }
+
+
+    public static void json(HttpServletResponse response, long totalCount, Collection<?> contents) {
+        Map<String, Object> model = new HashMap();
+        model.put("success", Boolean.valueOf(true));
+        model.put("total", Long.valueOf(totalCount));
+        model.put("list", contents);
+        try {
+            addCacheControlHeaders(response, true);
+            response.getWriter().print(JSON.toJSONString(model));
+        } catch (Exception ignored) {
+            log.trace("输出JSON对象失败", ignored);
+        }
+    }
+
+    public static HttpServletResponse addCacheControlHeaders(HttpServletResponse response, boolean responseJson) {
+        response.setContentType(responseJson ? "application/json" : "text/html");
+        response.setCharacterEncoding("utf-8");
+        response.setHeader("Cache-Control", "no-store");
+        response.setHeader("Pragrma", "no-cache");
+        response.setDateHeader("Expires", 0L);
+        return response;
+    }
+
+    public static Cookie addCookie(HttpServletResponse response, String name, String value, int maxAgeSeconds) {
+        if (!StringUtil.hasText(name)) {
+            return null;
+        }
+        try {
+            String path = getHttpServletRequest().getContextPath();
+            if (!StringUtil.hasText(path)) {
+                path = "/";
+            }
+            Cookie cookie = new Cookie(name, value);
+            cookie.setMaxAge(maxAgeSeconds);
+            cookie.setPath(path);
+            response.addCookie(cookie);
+            return cookie;
+        } catch (Exception e) {
+            log.trace("添加COOKIE失败", e);
+        }
+        return null;
+    }
+
+
+    public static Cookie getCookie(String name) {
+        Cookie[] cookies = getHttpServletRequest().getCookies();
+        if ((cookies != null) && (cookies.length > 0)) {
+            for (Cookie cookie : cookies) {
+                if (name.equals(cookie.getName())) {
+                    return cookie;
+                }
+            }
+        }
+        return null;
+    }
+
+
+    public static void deleteCookie(HttpServletResponse response, String name) {
+        if (!StringUtil.hasText(name)) {
+            return;
+        }
+        Cookie[] cookies = getHttpServletRequest().getCookies();
+        if ((cookies != null) && (cookies.length > 0)) {
+            for (Cookie cookie : cookies) {
+                if (name.equals(cookie.getName())) {
+                    cookie.setValue("");
+                    cookie.setMaxAge(0);
+                    response.addCookie(cookie);
+                }
+            }
+        }
+    }
+
+    public static <T> T getBean(Class<T> clazz) {
+        try {
+            return (T) getWebApplicationContext().getBean(clazz);
+        } catch (Exception e) {
+            log.trace("获取BEAN失败", e);
+        }
+        return null;
+    }
+
+
+    public static Object getBean(String name) {
+        try {
+            return getWebApplicationContext().getBean(name);
+        } catch (Exception e) {
+            log.trace("获取BEAN失败", e);
+        }
+        return null;
+    }
+
+
+    public static <T> T getBean(Class<T> clazz, String name) {
+        try {
+            return (T) getWebApplicationContext().getBean(name, clazz);
+        } catch (Exception e) {
+            log.trace("获取BEAN失败", e);
+        }
+        return null;
+    }
+
+    public static Map<String, Object> getBeansWithAnnotation(Class<? extends Annotation> annotationType) {
+        return getWebApplicationContext().getBeansWithAnnotation(annotationType);
+    }
+
+    public static String getIp(HttpServletRequest request) {
+        if (request == null) {
+            return "";
+        }
+        String ip = request.getHeader("x-real-forwarded-for");
+        if ((ip == null) || (ip.length() == 0) || ("unknown".equalsIgnoreCase(ip))) {
+            ip = request.getHeader("x-forwarded-for");
+            if ((ip == null) || (ip.length() == 0) || ("unknown".equalsIgnoreCase(ip))) {
+                ip = request.getRemoteAddr();
+            }
+        }
+        if ((ip != null) && (ip.length() > 15) && (ip.indexOf(",") > 0)) {
+            ip = ip.substring(0, ip.indexOf(","));
+        }
+        return ip;
+    }
 }

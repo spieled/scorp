@@ -1,8 +1,6 @@
 package cn.studease.util;
 
-import com.cloudvast.annotation.J;
 
-@J("分页辅助类")
 public abstract interface Pager {
     public abstract int getStart();
 
@@ -18,7 +16,3 @@ public abstract interface Pager {
 }
 
 
-/* Location:              C:\Users\spieled\.m2\repository\com\cloudvast\base\6.8.20\base-6.8.20.jar!\com\cloudvast\pager\Pager.class
- * Java compiler version: 7 (51.0)
- * JD-Core Version:       0.7.1
- */
