@@ -59,12 +59,13 @@
         <dep.gearman-java.version>0.6</dep.gearman-java.version>
         <dep.poi.version>3.9</dep.poi.version>
         <dep.aspectj.version>1.7.4</dep.aspectj.version>
+        <dep.aspectjrt.version>1.8.6</dep.aspectjrt.version>
+        <dep.jcabi-aspects.version>0.22</dep.jcabi-aspects.version>
         <dep.jsqlparser.version>0.7.2</dep.jsqlparser.version>
         <dep.dubbo.version>2.4.9</dep.dubbo.version>
         <dep.zookeeper.version>3.3.3</dep.zookeeper.version>
         <dep.mongodb.version>1.5.0.RELEASE</dep.mongodb.version>
         <dep.google.zxing.version>3.2.0</dep.google.zxing.version>
-        <dep.aspectj.version>1.7.4</dep.aspectj.version>
         <dep.tomcat.version>7.0.5</dep.tomcat.version>
         <dep.commons.lang3.version>3.1</dep.commons.lang3.version>
         <dep.commons.codec>1.8</dep.commons.codec>
@@ -262,12 +263,12 @@
             <dependency>
                 <groupId>org.aspectj</groupId>
                 <artifactId>aspectjrt</artifactId>
-                <version>${dep.aspectj.version}</version>
+                <version>${dep.aspectjrt.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.aspectj</groupId>
-                <artifactId>aspectjweaver</artifactId>
-                <version>${dep.aspectj.version}</version>
+                <groupId>com.jcabi</groupId>
+                <artifactId>jcabi-aspects</artifactId>
+                <version>${dep.jcabi-aspects.version}</version>
             </dependency>
             <!-- tomcat -->
             <dependency>
@@ -702,6 +703,17 @@
                             </pluginExecutions>
                         </lifecycleMappingMetadata>
                     </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>com.jcabi</groupId>
+                    <artifactId>jcabi-maven-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>ajc</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>
