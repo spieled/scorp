@@ -35,5 +35,7 @@ RUN rm -rf tomcat-apr_new.tgz
 ADD ./catalina.sh /tomcat7/bin/catalina.sh
 RUN chmod +x /tomcat7/bin/catalina.sh
 
+ADD ./scorp-webapp/target/scorp-webapp.war /tomcat7/webapps/ROOT.war
+
 EXPOSE 8080
 CMD /start.sh && sleep 5 && tail -f /tomcat7/logs/catalina.out 
