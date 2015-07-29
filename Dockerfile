@@ -35,7 +35,13 @@ RUN rm -rf tomcat-apr_new.tgz
 ADD ./catalina.sh /tomcat7/bin/catalina.sh
 RUN chmod +x /tomcat7/bin/catalina.sh
 
-RUN mvn package
+RUN apt-get install -y maven
+WORKDIR /code
+# Prepare by downloading dependencies
+COPY * /code/
+RUN ["mvn", "dependency:resolve"]
+RUN ["mvn", "verify"]
+RUN ["mvn", "package"]
 
 ADD ./scorp-webapp/target/scorp-webapp.war /tomcat7/webapps/ROOT.war
 
