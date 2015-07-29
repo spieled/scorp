@@ -35,6 +35,8 @@ RUN rm -rf tomcat-apr_new.tgz
 ADD ./catalina.sh /tomcat7/bin/catalina.sh
 RUN chmod +x /tomcat7/bin/catalina.sh
 
+RUN mvn package
+
 ADD ./scorp-webapp/target/scorp-webapp.war /tomcat7/webapps/ROOT.war
 
 EXPOSE 8080
