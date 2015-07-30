@@ -46,7 +46,6 @@ RUN wget -q http://mirror.bit.edu.cn/apache/maven/maven-3/3.3.3/binaries/apache-
 RUN tar xzf apache-maven-3.3.3-bin.tar.gz
 
 RUN mkdir -p /usr/local/maven/
-RUN ls
 RUN cp -r apache-maven-3.3.3/* /usr/local/maven/
 RUN echo "export M2_HOME=/usr/local/maven" >> /etc/profile
 RUN echo "export PATH=\$M2_HOME/bin/:\$PATH" >> /etc/profile
@@ -59,12 +58,14 @@ ENV M2_HOME /usr/local/maven
 WORKDIR /code
 # Prepare by downloading dependencies
 COPY * /code/
-RUN ["mvn", "v"]
-RUN ["mvn", "dependency:resolve"]
-RUN ["mvn", "verify"]
-RUN ["mvn", "package"]
-
-ADD ./scorp-webapp/target/scorp-webapp.war /tomcat7/webapps/ROOT.war
+RUN /usr/local/maven/bin/mvn -v
+RUN /usr/local/maven/bin/mvn package
+# RUN ["mvn", "v"]
+# RUN ["mvn", "dependency:resolve"]
+# RUN ["mvn", "verify"]
+# RUN ["mvn", "package"]
+RUN rm -rf /tomcat7/webapps/ROOT
+RUN mv ./scorp-webapp/target/scorp-webapp.war /tomcat7/webapps/ROOT.war
 
 EXPOSE 8080
 CMD /start.sh && sleep 5 && tail -f /tomcat7/logs/catalina.out 
