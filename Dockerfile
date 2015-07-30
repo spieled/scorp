@@ -48,7 +48,7 @@ RUN tar xzf apache-maven-3.3.3-bin.tar.gz
 RUN mkdir -p /usr/maven/
 RUN mv apache-maven* /usr/maven/maven3
 RUN echo "export M2_HOME=/usr/maven/maven3" >> /etc/profile
-RUN echo "export PATH=\$JAVA_HOME/bin/:\$PATH" >> /etc/profile
+RUN echo "export PATH=\$M2_HOME/bin/:\$PATH" >> /etc/profile
 
 RUN export M2_HOME=/usr/maven/maven3
 RUN export PATH=\$M2_HOME/bin/:\$PATH
