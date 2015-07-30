@@ -59,7 +59,7 @@ WORKDIR /code
 # Prepare by downloading dependencies
 COPY * /code/
 RUN /usr/local/maven/bin/mvn -v
-RUN /usr/local/maven/bin/mvn package
+RUN /usr/local/maven/bin/mvn -X package
 # RUN ["mvn", "v"]
 # RUN ["mvn", "dependency:resolve"]
 # RUN ["mvn", "verify"]
