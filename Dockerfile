@@ -18,7 +18,10 @@ RUN mv jdk1.7* /usr/java/jdk7
 
 RUN echo "export JAVA_HOME=/usr/java/jdk7/jre" >> /etc/profile
 RUN echo "export PATH=\$JAVA_HOME/bin/:\$PATH" >> /etc/profile
-RUN source /etc/profile
+RUN export JAVA_HOME=/usr/java/jdk7/jre
+RUN export PATH=\$JAVA_HOME/bin/:\$PATH
+ENV JAVA_HOME=/usr/java/jdk7/jre
+
 
 # Time Zone
 RUN echo "Asia/Shanghai" > /etc/timezone
