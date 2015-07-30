@@ -516,7 +516,6 @@
                         <formats>
                             <format>html</format>
                         </formats>
-                        <configLocation>/jwms/findbugs.xml</configLocation>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -525,19 +524,12 @@
                     <version>2.6</version>
                     <configuration>
                         <targetJdk>1.7</targetJdk>
-                        <rulesets>
-                            <!-- Two rule sets that come bundled with PMD -->
-                            <ruleset>/jwms/pmd_ruleset_minimal.xml</ruleset>
-                        </rulesets>
                     </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-checkstyle-plugin</artifactId>
                     <version>2.12.1</version>
-                    <configuration>
-                        <configLocation>/jwms/checkstyle_ruleset_minimal.xml</configLocation>
-                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -623,86 +615,6 @@
                             <version>1.7</version>
                         </dependency>
                     </dependencies>
-                </plugin>
-                <!-- dbunit -->
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>dbunit-maven-plugin</artifactId>
-                    <version>1.0-beta-3</version>
-
-                    <!--jar file that has the jdbc driver -->
-                    <dependencies>
-                        <dependency>
-                            <groupId>mysql</groupId>
-                            <artifactId>mysql-connector-java</artifactId>
-                            <version>${dep.mysql.version}</version>
-                        </dependency>
-                    </dependencies>
-
-                    <!-- common configurations -->
-                    <configuration>
-                        <driver>com.mysql.jdbc.Driver</driver>
-                        <url>jdbc:mysql://127.0.0.1:3306/mybatis?useUnicode=true&amp;characterEncoding=UTF-8</url>
-                        <username>root</username>
-                        <password>root</password>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <id>clean_insert</id>
-                            <!--<phase>test-compile</phase> -->
-                            <goals>
-                                <goal>operation</goal>
-                            </goals>
-                            <!-- specific configurations -->
-                            <configuration>
-                                <type>CLEAN_INSERT</type>
-                                <src>src/test/resources/data/init.xml</src>
-                            </configuration>
-                        </execution>
-                        <execution>
-                            <id>export</id>
-                            <goals>
-                                <goal>export</goal>
-                            </goals>
-                            <!-- specific configurations -->
-                            <configuration>
-                                <format>xml</format>
-                                <src>src/test/resources/dbtest/init.xml</src>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-                <!--This plugin's configuration is used to store Eclipse m2e settings
-                    only. It has no influence on the Maven build itself. -->
-                <plugin>
-                    <groupId>org.eclipse.m2e</groupId>
-                    <artifactId>lifecycle-mapping</artifactId>
-                    <version>1.0.0</version>
-                    <configuration>
-                        <lifecycleMappingMetadata>
-                            <pluginExecutions>
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
-                                        <groupId>
-                                            com.jumei.mojo
-                                        </groupId>
-                                        <artifactId>
-                                            parrot-maven-plugin
-                                        </artifactId>
-                                        <versionRange>
-                                            [1.0.0,)
-                                        </versionRange>
-                                        <goals>
-                                            <goal>t2p</goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <ignore></ignore>
-                                    </action>
-                                </pluginExecution>
-                            </pluginExecutions>
-                        </lifecycleMappingMetadata>
-                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>com.jcabi</groupId>
