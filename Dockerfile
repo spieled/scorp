@@ -39,10 +39,26 @@ RUN rm -rf tomcat-apr_new.tgz
 ADD ./catalina.sh /tomcat7/bin/catalina.sh
 RUN chmod +x /tomcat7/bin/catalina.sh
 
-RUN apt-get install -y maven
+
+# RUN apt-get install -y maven
+
+RUN wget -q http://mirror.bit.edu.cn/apache/maven/maven-3/3.3.3/binaries/apache-maven-3.3.3-bin.tar.gz
+RUN tar xzf apache-maven-3.3.3-bin.tar.gz
+
+RUN mkdir -p /usr/maven/
+RUN mv apache-maven* /usr/maven/maven3
+RUN echo "export M2_HOME=/usr/maven/maven3" >> /etc/profile
+RUN echo "export PATH=\$JAVA_HOME/bin/:\$PATH" >> /etc/profile
+
+RUN export M2_HOME=/usr/maven/maven3
+RUN export PATH=\$M2_HOME/bin/:\$PATH
+ENV M2_HOME /usr/maven/maven3
+
+
 WORKDIR /code
 # Prepare by downloading dependencies
 COPY * /code/
+RUN ["mvn", "v"]
 RUN ["mvn", "dependency:resolve"]
 RUN ["mvn", "verify"]
 RUN ["mvn", "package"]
