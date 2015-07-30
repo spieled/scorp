@@ -20,8 +20,24 @@ RUN echo "export JAVA_HOME=/usr/java/jdk7/jre" >> /etc/profile
 RUN echo "export PATH=\$JAVA_HOME/bin/:\$PATH" >> /etc/profile
 RUN export JAVA_HOME=/usr/java/jdk7/jre
 RUN export PATH=\$JAVA_HOME/bin/:\$PATH
-ENV JAVA_HOME=/usr/java/jdk7/jre
+ENV JAVA_HOME /usr/java/jdk7/jre
 
+# test java installed correctly or not
+RUN java -version
+
+RUN wget -q http://mirror.bit.edu.cn/apache/maven/maven-3/3.3.3/binaries/apache-maven-3.3.3-bin.tar.gz
+RUN tar xzf apache-maven-3.3.3-bin.tar.gz
+
+RUN mkdir -p /usr/local/maven/
+RUN cp -r apache-maven-3.3.3/* /usr/local/maven/
+RUN echo "export M2_HOME=/usr/local/maven" >> /etc/profile
+RUN echo "export PATH=\$M2_HOME/bin/:\$PATH" >> /etc/profile
+
+RUN export M2_HOME=/usr/local/maven
+RUN export PATH=\$M2_HOME/bin/:\$PATH
+ENV M2_HOME /usr/local/maven
+# test if maven installed correctly or not
+RUN mvn -v
 
 # Time Zone
 RUN echo "Asia/Shanghai" > /etc/timezone
@@ -40,30 +56,13 @@ ADD ./catalina.sh /tomcat7/bin/catalina.sh
 RUN chmod +x /tomcat7/bin/catalina.sh
 
 
-# RUN apt-get install -y maven
-
-RUN wget -q http://mirror.bit.edu.cn/apache/maven/maven-3/3.3.3/binaries/apache-maven-3.3.3-bin.tar.gz
-RUN tar xzf apache-maven-3.3.3-bin.tar.gz
-
-RUN mkdir -p /usr/local/maven/
-RUN cp -r apache-maven-3.3.3/* /usr/local/maven/
-RUN echo "export M2_HOME=/usr/local/maven" >> /etc/profile
-RUN echo "export PATH=\$M2_HOME/bin/:\$PATH" >> /etc/profile
-
-RUN export M2_HOME=/usr/local/maven
-RUN export PATH=\$M2_HOME/bin/:\$PATH
-ENV M2_HOME /usr/local/maven
-
 
 WORKDIR /code
 # Prepare by downloading dependencies
 COPY * /code/
 RUN /usr/local/maven/bin/mvn -v
 RUN /usr/local/maven/bin/mvn -X package
-# RUN ["mvn", "v"]
-# RUN ["mvn", "dependency:resolve"]
-# RUN ["mvn", "verify"]
-# RUN ["mvn", "package"]
+
 RUN rm -rf /tomcat7/webapps/ROOT
 RUN mv ./scorp-webapp/target/scorp-webapp.war /tomcat7/webapps/ROOT.war
 
