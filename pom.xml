@@ -15,6 +15,9 @@
         <module>scorp-webapp</module>
         <module>scorp-util</module>
         <module>scorp-guzz</module>
+        <module>scorp-config</module>
+        <module>scorp-search</module>
+        <module>scorp-quartz</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -55,7 +58,7 @@
         <dep.spring-rabbit.version>1.2.1.RELEASE</dep.spring-rabbit.version>
         <dep.spring-data-redis.version>1.1.0.RELEASE</dep.spring-data-redis.version>
         <dep.jedis.version>2.1.0</dep.jedis.version>
-        <dep.quartz.version>2.2.1</dep.quartz.version>
+        <dep.quartz.version>1.8.6</dep.quartz.version>
         <dep.gearman-java.version>0.6</dep.gearman-java.version>
         <dep.poi.version>3.9</dep.poi.version>
         <dep.aspectj.version>1.7.4</dep.aspectj.version>
@@ -259,12 +262,6 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-            <!-- aspectj -->
-            <dependency>
-                <groupId>org.aspectj</groupId>
-                <artifactId>aspectjrt</artifactId>
-                <version>${dep.aspectjrt.version}</version>
-            </dependency>
             <dependency>
                 <groupId>com.jcabi</groupId>
                 <artifactId>jcabi-aspects</artifactId>
@@ -390,11 +387,6 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.poi</groupId>
-                <artifactId>poi-ooxml-schemas</artifactId>
-                <version>${dep.poi.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.poi</groupId>
                 <artifactId>poi-ooxml</artifactId>
                 <version>${dep.poi.version}</version>
             </dependency>
@@ -476,17 +468,6 @@
                 <groupId>com.belerweb</groupId>
                 <artifactId>pinyin4j</artifactId>
                 <version>${dep.pinyin4j.version}</version>
-            </dependency>
-            <!-- POI操作Office的依赖 -->
-            <dependency>
-                <groupId>org.apache.poi</groupId>
-                <artifactId>poi</artifactId>
-                <version>${dep.org.apache.poi.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.poi</groupId>
-                <artifactId>poi-ooxml</artifactId>
-                <version>${dep.org.apache.poi.version}</version>
             </dependency>
             <!-- GUZZ的依赖 -->
             <dependency>

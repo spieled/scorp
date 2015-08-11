@@ -12,6 +12,8 @@
 
     <artifactId>scorp-util</artifactId>
 
+    <packaging>jar</packaging>
+
     <dependencies>
         <dependency>
             <groupId>com.google.zxing</groupId>
