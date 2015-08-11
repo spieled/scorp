@@ -7,11 +7,7 @@
 		http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
 		http://www.springframework.org/schema/context
 		http://www.springframework.org/schema/context/spring-context-3.1.xsd
-
-
-
-
-		http://www.springframework.org/schema/cache 
+		http://www.springframework.org/schema/cache
     	http://www.springframework.org/schema/cache/spring-cache.xsd">
 
     <!-- 自动扫描的包名 -->
@@ -19,36 +15,43 @@
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
-    <!-- 缓存配置 -->
-    <cache:annotation-driven/>
-
-    <bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
-        <property name="caches">
-            <set>
-                <bean
-                        class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean"
-                        p:name="second_cache"/>
-            </set>
+    <!-- 解决 @ResponseBody 汉字返回乱码 默认属性是("ISO-8859-1") 这里改为utf-8 -->
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>
+                <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                    <property name="supportedMediaTypes">
+                        <list>
+                            <value>text/plain;charset=UTF-8</value>
+                        </list>
+                    </property>
+                </bean>
+            </list>
         </property>
     </bean>
 
-    <!--<bean id="monitor" class="com.jumei.jmp.sdk.MonitorInfo" init-method="monitorInit">-->
-    <!--<constructor-arg name="appCode" value="jwms"></constructor-arg>-->
-    <!--<constructor-arg name="monitorWebUrl" value="http://192.168.49.88:9080/jmp/service/queryJmpServer"></constructor-arg>-->
-    <!--<property name="jvmKey" value="jwms.web.jvm"></property>-->
-    <!--</bean>-->
+    <!-- quartz 配置 -->
+    <!--
+        启用Quartz的集群化配置
+        参考com.cloudvast.quartz.job.SampleJob的写法
+        所有Job必须实现Job和Serializable两个接口
+        通过com.cloudvast.quartz.QuartzService提供的API来完成Job的调度-->
+    <bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="configLocation" value="classpath:quartz.properties"/>
+        <property name="autoStartup" value="true"/>
+    </bean>
 
-    <import resource="spring/spring-dao.xml"/>
-    <import resource="spring/spring-properties.xml"/>
-    <!--<import resource="spring/spring-rpc/spring-thrift-server.xml" />
-    <import resource="spring/spring-rpc/spring-thrift-client.xml" />
-    <import resource="spring/spring-dao.xml" />
-    <import resource="spring/spring-redis.xml" />
-    <import resource="spring/spring-gearman.xml" />
-    <import resource="spring/spring-quartz.xml" />
-    <import resource="spring/spring-email.xml" />
-    <import resource="spring/spring-mq/spring-mq-producer.xml" />
-    <import resource="spring/spring-mq/spring-mq-consumer.xml" />
-    <import resource="spring/spring-aop.xml" />
-    <import resource="spring/spring-properties.xml" />-->
+    <bean id="scorpQuartzService" class="cn.studease.quartz.DefaultQuartzService">
+        <property name="scheduler" ref="scheduler"/>
+        <property name="packagesToScan">
+            <list>
+                <value>cn.studease.scorp.quartz.job</value>
+            </list>
+        </property>
+    </bean>
+
+
+    <!--<import resource="spring/spring-dao.xml"/>
+    <import resource="spring/spring-properties.xml"/>-->
 </beans>

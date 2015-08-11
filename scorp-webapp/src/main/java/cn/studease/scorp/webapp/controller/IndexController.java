@@ -4,7 +4,6 @@ import cn.studease.scorp.core.service.UserService;
 import cn.studease.scorp.dataaccess.entity.User;
 import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class IndexController {
 
-    @Autowired
+    //@Autowired
     private UserService userService;
 
     {

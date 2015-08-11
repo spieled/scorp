@@ -49,7 +49,6 @@
         <dep.slf4j.version>1.7.5</dep.slf4j.version>
         <dep.logback.version>1.0.13</dep.logback.version>
         <dep.parrot-service.version>1.2.0</dep.parrot-service.version>
-        <dep.validation-api.version>1.0.0.GA</dep.validation-api.version>
         <dep.parrot-maven-plugin.version>1.1.0</dep.parrot-maven-plugin.version>
         <dep.maven-jetty-plugin.version>8.1.9.v20130131</dep.maven-jetty-plugin.version>
         <dep.dbunit.version>2.4.9</dep.dbunit.version>
@@ -451,17 +450,6 @@
                 <groupId>org.springframework.data</groupId>
                 <artifactId>spring-data-mongodb</artifactId>
                 <version>${dep.mongodb.version}</version>
-            </dependency>
-            <!-- rpc -->
-            <dependency>
-                <groupId>javax.validation</groupId>
-                <artifactId>validation-api</artifactId>
-                <version>${dep.validation-api.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.jumei.parrot</groupId>
-                <artifactId>parrot-service</artifactId>
-                <version>${dep.parrot-service.version}</version>
             </dependency>
             <!-- pinyin4j -->
             <dependency>

@@ -2,18 +2,16 @@ package cn.studease.scorp.core.service;
 
 import cn.studease.scorp.dataaccess.dao.UserDao;
 import cn.studease.scorp.dataaccess.entity.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Author: liushaoping
  * Date: 2015/5/12.
  */
-@Service
+//@Service
 public class UserService {
 
-    @Autowired
+    //@Autowired
     private UserDao userDao;
 
     @Transactional
