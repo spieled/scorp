@@ -41,9 +41,11 @@ public class ReceiveLogsToSave {
 
         while (true) {
             QueueingConsumer.Delivery delivery = consumer.nextDelivery();
+            System.out.println(String.format("Receive to save: consume at %s", System.currentTimeMillis()));
             String message = new String(delivery.getBody());
 
             print2File(message);
+            System.out.println(" [*] Print2File is ok");
         }
 
     }

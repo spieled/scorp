@@ -33,7 +33,13 @@ public class ReceiveLogsToConsole {
         channel.basicConsume(queueName, true, consumer);
 
         while (true) {
+            try {
+                Thread.sleep(5 * 1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             QueueingConsumer.Delivery delivery = consumer.nextDelivery();
+            System.out.println(String.format("Receive to console: consume at %s", System.currentTimeMillis()));
             String message = new String(delivery.getBody());
             System.out.println(" [x] Received '" + message + "'");
 
