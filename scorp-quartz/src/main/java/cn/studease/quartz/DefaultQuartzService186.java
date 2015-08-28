@@ -1,24 +1,13 @@
 package cn.studease.quartz;
 
-import cn.studease.annotation.J;
-import cn.studease.util.Dir;
-import cn.studease.util.ReflectUtil;
-import cn.studease.util.StringUtil;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import org.quartz.*;
-
-
 /**
  * Author: liushaoping
  * Date: 2015/8/11.
  */
-public class DefaultQuartzService implements QuartzService {
+public class DefaultQuartzService186 {
+}
+/*
+implements QuartzService {
 
     private static final String NAME = "name";
     private static final String JOB_NAME = "jobName";
@@ -195,4 +184,4 @@ public class DefaultQuartzService implements QuartzService {
     public void setPackagesToScan(String[] packagesToScan) {
         this.packagesToScan = packagesToScan;
     }
-}
+}*/

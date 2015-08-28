@@ -57,7 +57,7 @@
         <dep.spring-rabbit.version>1.2.1.RELEASE</dep.spring-rabbit.version>
         <dep.spring-data-redis.version>1.1.0.RELEASE</dep.spring-data-redis.version>
         <dep.jedis.version>2.1.0</dep.jedis.version>
-        <dep.quartz.version>1.8.6</dep.quartz.version>
+        <dep.quartz.version>2.2.1</dep.quartz.version>
         <dep.gearman-java.version>0.6</dep.gearman-java.version>
         <dep.poi.version>3.9</dep.poi.version>
         <dep.aspectj.version>1.7.4</dep.aspectj.version>
@@ -73,7 +73,9 @@
         <dep.commons.codec>1.8</dep.commons.codec>
         <dep.commons.fileupload>1.2.2</dep.commons.fileupload>
         <dep.commons.io>1.4</dep.commons.io>
-        <dep.commons.httpclient>3.1</dep.commons.httpclient>
+        <!--<dep.commons.httpclient>3.1</dep.commons.httpclient>-->
+        <dep.httpcomponents.httpclient>4.5</dep.httpcomponents.httpclient>
+
         <dep.commons.dbcp>1.4</dep.commons.dbcp>
         <dep.commons.pool>1.6</dep.commons.pool>
         <dep.zkclient.version>0.1</dep.zkclient.version>
@@ -293,10 +295,15 @@
                 <artifactId>commons-lang3</artifactId>
                 <version>${dep.commons.lang3.version}</version>
             </dependency>
-            <dependency>
+            <!--<dependency>
                 <groupId>commons-httpclient</groupId>
                 <artifactId>commons-httpclient</artifactId>
                 <version>${dep.commons.httpclient}</version>
+            </dependency>-->
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${dep.httpcomponents.httpclient}</version>
             </dependency>
             <!-- velocity -->
             <dependency>

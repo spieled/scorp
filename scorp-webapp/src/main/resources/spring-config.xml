@@ -42,7 +42,7 @@
         <property name="autoStartup" value="true"/>
     </bean>
 
-    <bean id="scorpQuartzService" class="cn.studease.quartz.DefaultQuartzService">
+    <bean id="scorpQuartzService" class="cn.studease.quartz.DefaultQuartzService186">
         <property name="scheduler" ref="scheduler"/>
         <property name="packagesToScan">
             <list>

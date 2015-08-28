@@ -24,7 +24,7 @@ public class Worker {
         channel.queueDeclare(TASK_QUEUE_NAME, true, false, false, null);
         System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
 
-        channel.basicQos(1);
+        channel.basicQos(3);
 
         QueueingConsumer consumer = new QueueingConsumer(channel);
         channel.basicConsume(TASK_QUEUE_NAME, false, consumer);

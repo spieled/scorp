@@ -22,6 +22,16 @@ public class StringUtil {
 
     private static final org.slf4j.Logger log = LoggerFactory.getLogger(StringUtil.class);
     private static final char[] HEX_DIGITS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+    private static final String PUNCTUATION_REGEX = "[\\p{P}+~$`^=|<>～`$^+=|<>￥×]";
+    private static final String WHITE_SPACE_REGEX = "\\s*|\t|\r|\n";
+
+    public static String clearPunctuation(String str) {
+        return str.replaceAll(PUNCTUATION_REGEX, Constants.EMPTY);
+    }
+
+    public static String clearWhiteSpace(String str) {
+        return str.replaceAll(WHITE_SPACE_REGEX, Constants.EMPTY);
+    }
 
     public static boolean isPhoneNumber(String number) {
         try {

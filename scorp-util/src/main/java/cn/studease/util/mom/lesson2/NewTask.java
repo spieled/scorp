@@ -32,7 +32,7 @@ public class NewTask {
             System.out.println(" [x] Sent '" + message + "'");
             n--;
             try {
-                Thread.sleep(1000);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
