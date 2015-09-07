@@ -305,6 +305,12 @@
                 <artifactId>httpclient</artifactId>
                 <version>${dep.httpcomponents.httpclient}</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpmime</artifactId>
+                <version>${dep.httpcomponents.httpclient}</version>
+            </dependency>
+
             <!-- velocity -->
             <dependency>
                 <groupId>org.apache.velocity</groupId>
